@@ -1,8 +1,10 @@
 <?php
 
-require_once __DIR__ . '/classes/AwsStorage.php';
-require_once __DIR__ . '/classes/LocalStorage.php';
-require_once __DIR__ . '/classes/User.php';
+require __DIR__ . '/../../../vendor/autoload.php';
+
+use Lab1\Storage\AwsStorage;
+use Lab1\Storage\LocalStorage;
+use Lab1\User\User;
 
 $locStorage   = LocalStorage::getInstance();
 $awsStorage   = AwsStorage::getInstance();
@@ -23,8 +25,8 @@ if ($user1 === $user2) {
     echo "User1 is not User2.<br>";
 }
 
-$localPath = __DIR__ . '/storage/source';
-$remotePath = __DIR__ . '/storage/remote';
+$localPath = __DIR__ . '/storages/source';
+$remotePath = __DIR__ . '/storages/remote';
 $localStorage = $user1->storage();
 
 echo "--- local folder ---<br>";
