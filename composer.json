@@ -6,7 +6,8 @@
   "license": "proprietary",
   "autoload": {
     "psr-4": {
-      "Lab1\\": "public/labs/lab1"
+      "Lab1\\": "public/labs/lab1",
+      "Lab2\\": "public/labs/lab2"
     }
   }
 }
