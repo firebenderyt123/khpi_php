@@ -1,9 +1,12 @@
 {
   "name": "khpi_php/www",
+  "version": "1.0.0",
   "description": "php labs",
   "minimum-stability": "stable",
   "license": "proprietary",
   "autoload": {
-    "psr-4": { "Csp\\": "./" }
+    "psr-4": {
+      "Lab1\\": "public/labs/lab1"
+    }
   }
 }

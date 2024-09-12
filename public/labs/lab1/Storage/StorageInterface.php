@@ -1,5 +1,7 @@
 <?php
 
+namespace Lab1\Storage;
+
 interface StorageInterface
 {
     public function upload(string $localPath, string $remotePath): void;

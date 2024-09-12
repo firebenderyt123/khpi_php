@@ -1,11 +1,9 @@
 <?php
 
-require_once __DIR__ . '/Storage.php';
-require_once __DIR__ . '/../interfaces/StorageInterface.php';
+namespace Lab1\Storage;
 
-class AwsStorage extends Storage implements StorageInterface
+class AwsStorage extends Storage
 {
-
     function upload(string $localPath, string $remotePath): void
     {
         // TODO: Implement upload() method.
