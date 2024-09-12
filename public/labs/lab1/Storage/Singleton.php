@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../interfaces/SingletonInterface.php';
+namespace Lab1\Storage;
+
+use Exception;
 
 abstract class Singleton implements SingletonInterface
 {
@@ -15,7 +17,7 @@ abstract class Singleton implements SingletonInterface
      */
     public function __wakeup(): void
     {
-        throw new \Exception("Cannot unserialize a singleton.");
+        throw new Exception("Cannot unserialize a singleton.");
     }
 
     public static function getInstance(): static

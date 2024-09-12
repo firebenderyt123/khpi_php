@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/StorageInterface.php';
+namespace Lab1\User;
+
+use Lab1\Storage\StorageInterface;
 
 interface UserInterface
 {

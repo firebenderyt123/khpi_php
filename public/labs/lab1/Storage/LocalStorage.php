@@ -1,9 +1,8 @@
 <?php
 
-require_once __DIR__ . '/Storage.php';
-require_once __DIR__ . '/../interfaces/StorageInterface.php';
+namespace Lab1\Storage;
 
-class LocalStorage extends Storage implements StorageInterface
+class LocalStorage extends Storage
 {
     public function upload(string $localPath, string $remotePath): void
     {
