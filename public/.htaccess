@@ -1,2 +1,6 @@
 RewriteEngine On
 RewriteRule ^/?$ http://%{HTTP_HOST}/labs/ [L,R=301]
+
+<Files "*.sql">
+  Require all denied
+</Files>
