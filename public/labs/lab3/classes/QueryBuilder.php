@@ -7,10 +7,10 @@ use Lab3\interfaces\QueryBuilderInterface;
 
 class QueryBuilder implements QueryBuilderInterface
 {
-    protected array $select = [];
-    protected string $from = "";
-    protected array $where = [];
-    protected int | null $limit = null;
+    protected array $select;
+    protected string $from;
+    protected array $where;
+    protected int | null $limit;
 
     public function __construct()
     {
