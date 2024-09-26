@@ -8,7 +8,8 @@
     "psr-4": {
       "Lab1\\": "public/labs/lab1",
       "Lab2\\": "public/labs/lab2",
-      "Lab3\\": "public/labs/lab3"
+      "Lab3\\": "public/labs/lab3",
+      "Lab4\\": "public/labs/lab4"
     }
   },
   "require": {
