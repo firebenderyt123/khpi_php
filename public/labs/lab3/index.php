@@ -13,6 +13,14 @@ function showResult(array $data): void
 $mysql = new MySQL("127.127.126.25", "root", "root", "test");
 $psql = new PostgreSQL("localhost", "postgres", "postgres", "postgres", 5432);
 
+echo "PostgreSQL: " .
+    $psql->queryBuilder
+        ->select("hello")
+        ->from("table")
+        ->where([["item", "=", 1]])
+        ->getSQL() .
+    "<br><br>";
+
 try {
     $mysql->connect();
     $sql = $mysql->queryBuilder
