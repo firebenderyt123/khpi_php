@@ -7,8 +7,7 @@ class HTMLRenderer extends Renderer
 
     public function renderTitle(string $title, int $hNum = 1): string
     {
-        $hNum = ($hNum > 6) ? 6 : (($hNum < 1) ? 1 : $hNum);
-        return "<h{$hNum}>{$title}</h{$hNum}>";
+        return "<{$this->getH($hNum)}>{$title}</{$this->getH($hNum)}>";
     }
 
     public function renderTextBlock(string $text): string

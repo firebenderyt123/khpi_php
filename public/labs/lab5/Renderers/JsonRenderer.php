@@ -7,7 +7,7 @@ class JsonRenderer extends Renderer
 
     public function renderTitle(string $title, int $hNum = 1): string
     {
-        return "\"title\":{\"name\":\"$title\",\"tag\":\"h{$hNum}\"}";
+        return "\"title\":{\"name\":\"$title\",\"tag\":\"{$this->getH($hNum)}\"}";
     }
 
     public function renderTextBlock(string $text): string

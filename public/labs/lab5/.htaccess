@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect requests for .xml files to index.php with a query parameter
+RewriteRule ^(.*)\.xml$ index.php?page=$1.xml [L,QSA]
+
+# Redirect requests for .json files to index.php with a query parameter
+RewriteRule ^(.*)\.json$ index.php?page=$1.json [L,QSA]
