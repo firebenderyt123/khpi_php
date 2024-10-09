@@ -7,25 +7,35 @@ class JsonRenderer extends Renderer
 
     public function renderTitle(string $title, int $hNum = 1): string
     {
-        return "\"title\":{\"name\":\"$title\",\"tag\":\"{$this->getH($hNum)}\"}";
+        return "{\"tag\":\"{$this->getH($hNum)}\",\"text\":\"$title\"}";
     }
 
-    public function renderTextBlock(string $text): string
+    public function renderTextBlock(string $text, array $options = []): string
     {
-        return "\"p\":\"{$text}\"";
+        $allowedAttributes = $this->textBlockSettings($options);
+        $attributes = $this->getStringAttributes($allowedAttributes);
+        return "{\"tag\":\"p\",\"text\":\"{$text}\"{$attributes}}";
     }
 
-    public function renderImage(string $src, array $options): string
+    public function renderImage(string $src, array $options = []): string
     {
-        $attributes = '';
-        foreach ($this->imageSettings($options) as $key => $value) {
-            $attributes .= "\"$key\":\"$value\",";
-        }
-        return "\"img\":{\"src\":\"$src\",\"attributes\":{$attributes}}";
+        $allowedAttributes = $this->imageSettings($options);
+        $attributes = $this->getStringAttributes($allowedAttributes);
+        return "{\"tag\":\"img\",\"src\":\"$src\"{$attributes}}";
     }
 
     public function renderParts(array $parts): string
     {
-        return "{" . implode(",", $parts) . "}";
+        return "[" . implode(",", $parts) . "]";
+    }
+
+    private function getStringAttributes(array $settings): string
+    {
+        $attributesArray = [];
+        foreach ($settings as $key => $value) {
+            $attributesArray[] = "\"$key\":\"$value\"";
+        }
+        $attributes = implode(",", $attributesArray);
+        return $attributes ? ",{$attributes}" : '';
     }
 }

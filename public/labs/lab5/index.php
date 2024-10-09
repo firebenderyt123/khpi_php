@@ -1,71 +1,31 @@
-<?php
+<label for="pageSelect">Choose page</label>
+<select id="pageSelect">
+    <option value="?page=simple">Simple</option>
+    <option value="?page=product">Product</option>
+</select>
 
-require __DIR__ . '/../../../vendor/autoload.php';
+<label for="extSelect">Choose extension</label>
+<select id="extSelect">
+    <option value=".html">HTML</option>
+    <option value=".json">JSON</option>
+    <option value=".xml">XML</option>
+</select>
 
-use Lab5\Pages\SimplePage;
+<iframe id="myIframe" src="page.php" style="border:none;overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const iframe = document.getElementById("myIframe");
+        const pageSelector = document.getElementById("pageSelect");
+        const extSelector = document.getElementById("extSelect");
 
-use Lab5\Renderers\Interfaces\RendererInterface;
-use Lab5\Renderers\HTMLRenderer;
-use Lab5\Renderers\JsonRenderer;
-use Lab5\Renderers\XmlRenderer;
+        pageSelector.addEventListener("change", changeIframeSrc);
+        extSelector.addEventListener("change", changeIframeSrc);
 
-$pages = [
-    'home' => 'simplePage',
-    'product' => 'productPage'
-];
-
-$renderers = [
-    'html' => 'htmlRenderer',
-    'json' => 'jsonRenderer',
-    'xml' => 'xmlRenderer'
-];
-
-$renderer = htmlRenderer();
-
-if (isset($_GET['page'])) {
-    $file = $_GET['page'];
-
-    $pageName = strtolower((string) pathinfo($file, PATHINFO_FILENAME));
-    $extension = strtolower((string) pathinfo($file, PATHINFO_EXTENSION));
-
-    if (array_key_exists($extension, $renderers))
-    {
-        $renderer = $renderers[$extension]();
-    }
-
-    if (!array_key_exists($pageName, $pages))
-    {
-        $page = simplePage($renderer);
-    }
-    else
-    {
-        $page = $pages[$pageName]($renderer);
-    }
-}
-else
-{
-    $page = simplePage($renderer);
-}
-echo $page->view();
-
-function simplePage(RendererInterface $renderer): SimplePage
-{
-    return new SimplePage($renderer, "Main page", "It's a simple page.");
-}
-
-function htmlRenderer(): HTMLRenderer
-{
-    return new HTMLRenderer();
-}
-
-function jsonRenderer(): JsonRenderer
-{
-    header('Content-Type: application/json');
-    return new JsonRenderer();
-}
-
-function xmlRenderer(): XmlRenderer
-{
-    header('Content-Type: application/xml');
-    return new XmlRenderer();
-}
+        function changeIframeSrc() {
+            const pageUrl = "page.php" + pageSelector.value + extSelector.value;
+            if (extSelector.value == ".xml")
+                window.open(pageUrl, '__blank');
+            iframe.src = pageUrl;
+        }
+    });
+</script>

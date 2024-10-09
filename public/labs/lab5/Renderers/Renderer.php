@@ -6,20 +6,51 @@ use Lab5\Renderers\Interfaces\RendererInterface;
 
 abstract class Renderer implements RendererInterface
 {
-    protected function imageSettings(array $options): array
+    private readonly array $globalOptionsDefaults;
+    private readonly array $imageDefaults;
+
+    public function __construct()
     {
-        $defaults = [
+        $this->globalOptionsDefaults = [
+            'id' => '',
+            'class' => '',
+            'style' => '',
+        ];
+
+        $this->imageDefaults = $this->addGlobalDefaults([
             'alt' => '',
             'title' => '',
             'width' => 'auto',
             'height' => 'auto',
-        ];
-        $allowedOptions = array_intersect_key($options, $defaults);
-        return array_merge($defaults, $allowedOptions);
+        ]);
     }
 
-    protected function getH(int $hNum)
+    protected function textBlockSettings(array $options): array
+    {
+        return $this->applySettings($options, $this->globalOptionsDefaults);
+    }
+
+    protected function imageSettings(array $options): array
+    {
+        return $this->applySettings($options, $this->imageDefaults);
+    }
+
+    protected function getH(int $hNum): string
     {
         return "h" . (($hNum > 6) ? 6 : (($hNum < 1) ? 1 : $hNum));
+    }
+
+    private function applySettings(array$options, array $defaults): array
+    {
+        $allowedOptions = array_intersect_key($options, $defaults);
+        $mergedOptions = array_merge($defaults, $allowedOptions);
+        return array_filter($mergedOptions, function ($value) {
+            return !empty($value);
+        });
+    }
+
+    private function addGlobalDefaults(array $defaults): array
+    {
+        return array_merge($this->globalOptionsDefaults, $defaults);
     }
 }

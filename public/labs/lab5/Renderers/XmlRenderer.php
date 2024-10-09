@@ -10,22 +10,31 @@ class XmlRenderer extends Renderer
         return "<title level=\"{$this->getH($hNum)}\">$title</title>";
     }
 
-    public function renderTextBlock(string $text): string
+    public function renderTextBlock(string $text, array $options = []): string
     {
-        return "<text>$text</text>";
+        $allowedAttributes = $this->textBlockSettings($options);
+        $attributes = $this->getStringAttributes($allowedAttributes);
+        return "<text $attributes>$text</text>";
     }
 
-    public function renderImage(string $src, array $options): string
+    public function renderImage(string $src, array $options = []): string
     {
-        $attributes = '';
-        foreach ($options as $key => $value) {
-            $attributes .= "$key=\"$value\" ";
-        }
+        $allowedAttributes = $this->imageSettings($options);
+        $attributes = $this->getStringAttributes($allowedAttributes);
         return "<image src=\"$src\" $attributes/>";
     }
 
     public function renderParts(array $parts): string
     {
         return "<content>" . implode('', $parts) . "</content>";
+    }
+
+    private function getStringAttributes(array $settings): string
+    {
+        $attributes = '';
+        foreach ($settings as $key => $value) {
+            $attributes .= "$key=\"$value\" ";
+        }
+        return $attributes;
     }
 }

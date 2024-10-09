@@ -6,11 +6,11 @@ use Lab5\Renderers\Interfaces\RendererInterface;
 
 class SimplePage extends Page
 {
-    private string $title;
-    private string $content;
+    private readonly string $title;
+    private readonly string $content;
 
     public function __construct(RendererInterface $renderer,
-     string $title, string $content)
+                                string $title, string $content)
     {
         parent::__construct($renderer);
         $this->title = $title;

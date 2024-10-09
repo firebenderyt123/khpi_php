@@ -10,23 +10,31 @@ class HTMLRenderer extends Renderer
         return "<{$this->getH($hNum)}>{$title}</{$this->getH($hNum)}>";
     }
 
-    public function renderTextBlock(string $text): string
+    public function renderTextBlock(string $text, array $options = []): string
     {
-        return "<p>{$text}</p>";
+        $allowedAttributes = $this->textBlockSettings($options);
+        $attributes = $this->getStringAttributes($allowedAttributes);
+        return "<p {$attributes}>{$text}</p>";
     }
 
     public function renderImage(string $src, array $options = []): string
     {
-        $attributes = '';
-        foreach ($this->imageSettings($options) as $key => $value) {
-            $attributes .= "$key=\"$value\" ";
-        }
-
+        $allowedAttributes = $this->imageSettings($options);
+        $attributes = $this->getStringAttributes($allowedAttributes);
         return "<img src=\"{$src}\" {$attributes} />";
     }
 
     public function renderParts(array $parts): string
     {
         return implode($parts);
+    }
+
+    private function getStringAttributes(array $settings): string
+    {
+        $attributes = '';
+        foreach ($settings as $key => $value) {
+            $attributes .= "$key=\"$value\" ";
+        }
+        return $attributes;
     }
 }
