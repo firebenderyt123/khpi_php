@@ -21,7 +21,8 @@ class ProductPage extends Page
     {
         $imageSrc = $this->product->getImageSrc();
         return $this->renderer->renderParts([
-            $this->renderer->renderImage($imageSrc, [
+            $this->renderer->renderImage([
+                    "src" => $imageSrc,
                     "alt" => pathinfo($imageSrc, PATHINFO_FILENAME),
                     "width" => "250px",
                     "height" => "250px"

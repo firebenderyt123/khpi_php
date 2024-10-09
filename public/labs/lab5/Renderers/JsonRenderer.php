@@ -10,18 +10,18 @@ class JsonRenderer extends Renderer
         return "{\"tag\":\"{$this->getH($hNum)}\",\"text\":\"$title\"}";
     }
 
-    public function renderTextBlock(string $text, array $options = []): string
+    public function renderTextBlock(string $text, array $attrs = []): string
     {
-        $allowedAttributes = $this->textBlockSettings($options);
+        $allowedAttributes = $this->textBlockSettings($attrs);
         $attributes = $this->getStringAttributes($allowedAttributes);
         return "{\"tag\":\"p\",\"text\":\"{$text}\"{$attributes}}";
     }
 
-    public function renderImage(string $src, array $options = []): string
+    public function renderImage(array $attrs): string
     {
-        $allowedAttributes = $this->imageSettings($options);
+        $allowedAttributes = $this->imageSettings($attrs);
         $attributes = $this->getStringAttributes($allowedAttributes);
-        return "{\"tag\":\"img\",\"src\":\"$src\"{$attributes}}";
+        return "{\"tag\":\"img\"{$attributes}}";
     }
 
     public function renderParts(array $parts): string
@@ -36,6 +36,6 @@ class JsonRenderer extends Renderer
             $attributesArray[] = "\"$key\":\"$value\"";
         }
         $attributes = implode(",", $attributesArray);
-        return $attributes ? ",{$attributes}" : '';
+        return $attributes ? ",\"attributes\":{{$attributes}}" : '';
     }
 }

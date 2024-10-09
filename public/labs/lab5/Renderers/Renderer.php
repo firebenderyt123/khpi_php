@@ -2,6 +2,7 @@
 
 namespace Lab5\Renderers;
 
+use Error;
 use Lab5\Renderers\Interfaces\RendererInterface;
 
 abstract class Renderer implements RendererInterface
@@ -18,6 +19,7 @@ abstract class Renderer implements RendererInterface
         ];
 
         $this->imageDefaults = $this->addGlobalDefaults([
+            'src' => '',
             'alt' => '',
             'title' => '',
             'width' => 'auto',
@@ -32,6 +34,10 @@ abstract class Renderer implements RendererInterface
 
     protected function imageSettings(array $options): array
     {
+        if (!array_key_exists("src", $options))
+        {
+            throw new Error("Image src required!");
+        }
         return $this->applySettings($options, $this->imageDefaults);
     }
 
