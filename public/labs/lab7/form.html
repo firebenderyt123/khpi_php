@@ -1,0 +1,50 @@
+<form method="POST" action="">
+    <label>
+        <input type="radio" name="delivery_method" value="pickup" required checked="checked">
+        Самовивіз (безкоштовно)
+    </label><br>
+    <label>
+        <input type="radio" name="delivery_method" value="nova" required>
+        Доставка зовнішньою службою
+    </label><br>
+    <label>
+        <input type="radio" name="delivery_method" value="own" required>
+        Доставка власною службою
+    </label><br>
+
+    <div class="city-block">
+        <label for="city">Оберіть місто:</label>
+        <select name="city" id="city" required>
+            <option value="">Виберіть місто</option>
+            <option value="Kyiv">Київ</option>
+            <option value="Lviv">Львів</option>
+            <option value="Odesa">Одеса</option>
+            <option value="Kharkiv">Харків</option>
+        </select>
+    </div>
+
+    <button type="submit">Розрахувати вартість</button>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const radioButtons = document.querySelectorAll('input[name="delivery_method"]');
+        const cityBlock = document.getElementsByClassName('city-block')[0];
+        const citySelect = document.getElementById('city');
+
+        function toggleCitySelection() {
+            if (this.value === 'pickup') {
+                cityBlock.style.display = 'none';
+                citySelect.value = '';
+                citySelect.removeAttribute('required');
+            } else {
+                cityBlock.style.display = 'block';
+                citySelect.setAttribute('required', '');
+            }
+        }
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('click', toggleCitySelection);
+        });
+        radioButtons[0].click();
+    });
+</script>
