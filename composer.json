@@ -11,7 +11,8 @@
       "Lab3\\": "public/labs/lab3",
       "Lab4\\": "public/labs/lab4",
       "Lab5\\": "public/labs/lab5",
-      "Lab6\\": "public/labs/lab6"
+      "Lab6\\": "public/labs/lab6",
+      "Lab7\\": "public/labs/lab7"
     }
   },
   "require": {
